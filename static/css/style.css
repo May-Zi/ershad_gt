@@ -87,6 +87,10 @@ body {
     margin-bottom: 0px;
   }
 
+  .header-inner {
+    padding: 0 25px;
+  }
+
   option {
     color: black;
   }
