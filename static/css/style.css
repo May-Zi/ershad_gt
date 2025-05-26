@@ -82,3 +82,14 @@ body {
     border: none;
     text-transform: uppercase;
 }
+
+@media screen and (max-width: 768px) {
+  
+  .header {
+    margin-bottom: 0px;
+  }
+
+  option {
+    color: black;
+  }
+} 
