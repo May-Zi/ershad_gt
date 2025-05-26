@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<form action="/navigate" method="POST">
+    <!-- "from" - section -->
+    <div class="selection-section">
+        <div class="from-to">
+            <label for="from">From:</label>
+        </div>
+        <select id="from" name="from" class="select-box">
+            <option value="cafeteria">cafeteria</option>
+            <option value="entrance">CMUQ entrance</option>
+            <option value="room-1199">Room 1199</option>
+        </select>
+    </div>
+
+    <!-- "to" - section -->
+    <div class="selection-section">
+        <div class="from-to">
+            <label for="to">To:</label>
+        </div>
+        <select id="to" name="to" class="select-box">
+            <option value="entrance">CMUQ entrance</option>
+            <option value="cafeteria">cafeteria</option>
+            <option value="room-1199">Room 1199</option>
+        </select>
+    </div>
+    <button class="submit" type="submit">navigate</button>
+</form>
+{% endblock %}
