@@ -36,16 +36,6 @@ body {
 
 /* style of the selection section */
 
-.selection-section {
-    padding: 0;
-    margin: 0 auto 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color:rgba(218, 218, 218, 0.359)A;
-    border-collapse: collapse;
-}
-
 .from-to {
     background-color: #AAAAAA;
     display: flex;
