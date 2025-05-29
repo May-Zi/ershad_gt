@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Mark the PNG map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mark Map</title>
     <style>
-        body {
-            margin: 0;
-            font-family: sans-serif;
-            text-align: center;
-        }
-
         #map-container {
             width: 100%;
             max-width: 800px;
@@ -17,7 +11,6 @@
             border: 2px solid #ccc;
             overflow: scroll;
             position: relative;
-            touch-action: manipulation;
         }
 
         #map {
@@ -39,20 +32,19 @@
         }
 
         #export-btn {
-            margin-top: 15px;
+            margin-top: 20px;
             padding: 10px 20px;
-            font-size: 16px;
         }
     </style>
 </head>
-<body>
-    <h1>Mark the PNG Map</h1>
+<body data-session-id="{{ session_id }}" data-map-id="{{ map_id }}" data-start-time="{{ start_time }}">
+    <h1 style="text-align:center;">Mark the PNG map</h1>
 
     <div id="map-container">
         <img id="map" src="/static/maps/cs_cor.png" />
     </div>
 
-    <button id="export-btn">Export CSV</button>
+    <button id="export-btn">Export CSV file</button>
 
     <script src="/static/js/map.js"></script>
 </body>
