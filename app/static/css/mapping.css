@@ -1,0 +1,25 @@
+
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+#map-container {
+    width: 800px;
+    height: 600px;
+    overflow: auto;
+    border: 1px solid #ccc;
+    position: relative;
+    margin: 20px auto;
+}
+#map {
+    width: 100%;
+    height: auto;
+}
+.location-icon {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}

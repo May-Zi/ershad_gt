@@ -1,13 +1,13 @@
 
-import os, csv, time
-from flask import render_template, request, jsonify, send_file, url_for, redirect
-from app.models import User
-from app.forms import RegistrationForm, LoginForm
-
-from uuid import uuid4
-from flask_login import login_user, login_required, logout_user, current_user
 from . import bp
 from app import db
+import csv, io
+
+from flask import render_template, request, jsonify, send_file, url_for, redirect, Response
+from flask_login import login_user, login_required, logout_user, current_user
+
+from app.models import User
+from app.forms import RegistrationForm, LoginForm
 
 """
 simple view functions that don't
@@ -73,6 +73,38 @@ def logout():
     return redirect(url_for("main.index"))
 
 """
-- defined an API for
+the following defines the following functionality:
+allow the user to edit a "corridor map" and later
+export the csv based on the coordinates
 """
 
+#no need for database (at least initially)
+locations = []
+
+#this will serve the template
+@bp.route('/mapping')
+def map_view():
+    return render_template('mapping/index.html')
+
+#creating the API
+@bp.route('/add-location', methods=['POST'])
+def add_location():
+    data = request.get_json()
+    time = data['time']
+    x = data['x']
+    y = data['y']
+    locations.append((time, x, y))
+    return jsonify({'status': 'ok'})  # Confirm it was added
+
+@bp.route('/export')
+def export_csv():
+    si = io.StringIO()
+    cw = csv.writer(si)
+    cw.writerow(['Time', 'X', 'Y'])
+    cw.writerows(locations)
+    output = si.getvalue()
+    locations.clear()
+
+    return Response(
+        output, mimetype='text/csv',
+        headers={'Content-Disposition': 'attachment; filename=locations.csv'})

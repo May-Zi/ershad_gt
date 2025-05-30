@@ -1,51 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Mark the PNG map</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        #map-container {
-            width: 100%;
-            max-width: 800px;
-            margin: auto;
-            border: 2px solid #ccc;
-            overflow: scroll;
-            position: relative;
-        }
+{% extends 'base.html' %}
 
-        #map {
-            width: 100%;
-            height: auto;
-            cursor: crosshair;
-        }
+{% block title %}mark the PNG map{% endblock %}
 
-        .marker {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            background-color: red;
-            border: 2px solid white;
-            border-radius: 50%;
-            box-shadow: 0 0 5px #000;
-            transform: translate(-50%, -100%);
-            pointer-events: none;
-        }
+{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='css/mapping.css') }}">{% endblock %}
 
-        #export-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-        }
-    </style>
-</head>
-<body data-session-id="{{ session_id }}" data-map-id="{{ map_id }}" data-start-time="{{ start_time }}">
-    <h1 style="text-align:center;">Mark the PNG map</h1>
+{% block content %}
+<h1>Mark the PNG Map</h1>
+<div id="map-container"><img id="map" src="/static/maps/cs_cor.png" alt="Map"></div>
+<button onclick="exportCSV()">Export CSV file</button>
+{% endblock %}
 
-    <div id="map-container">
-        <img id="map" src="/static/maps/cs_cor.png" />
-    </div>
+{% block javascript %}
+<script src="/static/js/map.js"></script>
+{% endblock %}
 
-    <button id="export-btn">Export CSV file</button>
-
-    <script src="/static/js/map.js"></script>
-</body>
-</html>
+    
+    

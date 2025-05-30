@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}Hello!!!!!!{% endblock %}
+{% block title %}Wayfinding{% endblock %}
+{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">{% endblock %}
 
 {% block content %}
 <form action="/navigate" method="POST">
