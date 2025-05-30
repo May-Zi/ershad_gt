@@ -33,6 +33,9 @@ def imu():
 Login / Logout / Register
 """
 
+from app.models import User
+
+
 """
 
 - defined an API for 
