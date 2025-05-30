@@ -1,10 +1,14 @@
 
-from flask import render_template, request, jsonify, send_file, redirect, url_for
+from flask import render_template, request, jsonify, send_file, url_for, redirect
+from app.models import User
+from app.forms import RegistrationForm, LoginForm
+from werkzeug.security import generate_password_hash, check_password_hash
 import os, csv, time
 from uuid import uuid4
+from flask_login import login_user
 from . import bp
-from flask import current_app
 from pathlib import Path
+from app import db
 
 """
 simple view functions that don't
@@ -30,15 +34,35 @@ def imu():
     return "<h1>This is the IMU test page</h1>"
 
 """
-Login / Logout / Register
+Register / Login / Logout / 
 """
 
-from app.models import User
+@bp.route("/register", methods = ["GET", "POST"])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username = form.username.data,
+                    email = form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("auth.login"))
+    return render_template("authentication/register.html", form=form)
 
-
+@bp.route("/login", methods = ["GET", "POST"])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('index', _external=True, _scheme='https'))
+        else:
+            return redirect(url_for('login', _external=True, _scheme='https'))
+    return render_template("authentication/login.html", form = form)
 """
-
-- defined an API for 
+- defined an API for
 """
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
