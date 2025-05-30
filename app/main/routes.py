@@ -6,9 +6,37 @@ from . import bp
 from flask import current_app
 from pathlib import Path
 
+"""
+simple view functions that don't
+have APIs related to them
+"""
+
 @bp.route('/')
 def index():
-    return render_template('home/index.html')
+    return "<h1>Future homepage</h1>"
+
+@bp.route('/wayfinding')
+def wayfind():
+    return render_template('wayfind/index.html')
+
+"""
+the following is responsible for the
+IMU functionalities. They will be tested using
+primarily JavaScript.
+"""
+
+@bp.route("/imu")
+def imu():
+    return "<h1>This is the IMU test page</h1>"
+
+"""
+Login / Logout / Register
+"""
+
+"""
+
+- defined an API for 
+"""
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SESSIONS_DIR = BASE_DIR / "sessions"
