@@ -5,35 +5,6 @@ body {
     font-family: Arial;
 }
 
-/* the header style */
-
-.header {
-    background-color: #0f4c75;
-}
-
-.header-inner {
-    height: 15vh;
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    color: white;
-    margin: 0;
-    font-size: 28px;
-}
-
-.login-button {
-    text-decoration: none;
-    color: white;
-    background-color: #3282b8;
-    padding: 10px 18px;
-    font-weight: bold;
-}
-
 /* style of the selection section */
 
 .from-to {
@@ -70,18 +41,3 @@ body {
     border: none;
     text-transform: uppercase;
 }
-
-@media screen and (max-width: 768px) {
-  
-  .header {
-    margin-bottom: 0px;
-  }
-
-  .header-inner {
-    padding: 0 25px;
-  }
-
-  option {
-    color: black;
-  }
-} 
