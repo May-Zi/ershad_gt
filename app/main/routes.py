@@ -3,7 +3,7 @@ from . import bp
 from app import db
 import csv, io
 
-from flask import render_template, request, jsonify, send_file, url_for, redirect, Response
+from flask import render_template, request, jsonify, url_for, redirect, Response
 from flask_login import login_user, login_required, logout_user, current_user
 
 from app.models import User
@@ -51,11 +51,9 @@ def register():
 
 @bp.route("/login", methods = ["GET", "POST"])
 def login():
-
     #basically handle if the user is already logge in
     if current_user.is_authenticated:
         return redirect(url_for("main.index"))
-
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -64,7 +62,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.index'))
         else:
-            return redirect(url_for("main.index"))
+            return redirect(url_for("main.login"))
     return render_template("authentication/login.html", form = form)
 
 @bp.route("/logout")
@@ -78,33 +76,35 @@ allow the user to edit a "corridor map" and later
 export the csv based on the coordinates
 """
 
-#no need for database (at least initially)
-locations = []
-
-#this will serve the template
+#this will serve the page where the mapping is stored
 @bp.route('/mapping')
-def map_view():
+def mapView():
     return render_template('mapping/index.html')
 
-#creating the API
+#store each "red dot" as a tuple of three values
+locations = []
+
+#append each datapoint to "locations"
 @bp.route('/add-location', methods=['POST'])
-def add_location():
+def addLocation():
+    #assign the post json to a variable
     data = request.get_json()
-    time = data['time']
-    x = data['x']
-    y = data['y']
+    #as json is like a dictionary, assign it key to a variable
+    time, x, y = data['time'], data['x'], data['y']
     locations.append((time, x, y))
-    return jsonify({'status': 'ok'})  # Confirm it was added
+    print(f"clicked on ({x}, {y}) after {time}s")
+    print(f"full locations: {locations}")
+    return jsonify({'status': 'ok'})
 
-@bp.route('/export')
-def export_csv():
-    si = io.StringIO()
-    cw = csv.writer(si)
-    cw.writerow(['Time', 'X', 'Y'])
-    cw.writerows(locations)
-    output = si.getvalue()
+@bp.route("/export")
+def exportCSV():
+    file = io.StringIO()
+    writer = csv.writer(file)
+    #create the first row. manually added
+    writer.writerow(['time', 'xAxis', 'yAxis'])
+    #add the data. each tuple with 3 entries.
+    writer.writerows(locations)
     locations.clear()
-
     return Response(
-        output, mimetype='text/csv',
-        headers={'Content-Disposition': 'attachment; filename=locations.csv'})
+        file.getvalue(), mimetype="text/csv",
+        headers = {"Content-Disposition": "attachment; filename: locations.csv"})
