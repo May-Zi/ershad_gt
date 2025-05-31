@@ -16,7 +16,7 @@ have APIs related to them
 
 @bp.route('/')
 def index():
-    return "<h1>Future homepage</h1>"
+    return render_template("home/index.html")
 
 @bp.route('/wayfinding')
 @login_required

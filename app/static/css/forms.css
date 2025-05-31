@@ -1,0 +1,56 @@
+/*
+source: https://web.dev/learn/forms/styling
+*/
+
+label,
+input,
+textarea,
+select,
+button {
+  font-size: 1.3rem;
+  line-height: 1.2
+}
+
+form {
+  width: 30em;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+label {
+  margin-bottom: 0.4rem;
+  display: block;
+  text-align: left;
+}
+
+input,
+textarea {
+  padding: 0.4rem;
+  width: 100%;
+  border: 1px solid;
+  margin-bottom: 20px;
+}
+
+input[type="submit"] {
+    border: none;
+    height: 50px;
+    background-color: #2E933C;
+    margin-bottom: 40px;
+    border-radius: 10px;
+}
+
+.form-check {
+  text-align: left;
+}
+
+.form-check label {
+  display: flex;
+}
+
+input[type="checkbox"] {
+    display: flex;
+    width: 40px;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}

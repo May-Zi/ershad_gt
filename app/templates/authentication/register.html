@@ -1,3 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Register | eRSHAD{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<h1 class="h1-map">Register to eRSHAD</h1>
 <form method="POST">
     {{ form.hidden_tag() }}
     {{ form.username.label }} {{ form.username() }}<br>
@@ -6,3 +16,7 @@
     {{ form.password2.label }} {{ form.password2() }}<br>
     {{ form.submit() }}
 </form>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

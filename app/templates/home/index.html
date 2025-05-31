@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}mark the PNG map{% endblock %}
+{% block title %}Home | eRSHAD{% endblock %}
 
-{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='css/mapping.css') }}">{% endblock %}
+{% block style %}
+
+{% endblock %}
 
 {% block content %}
-<h1 class="h1-map">mark the PNG map</h1>
-<div id="map-container"><img id="map" src="/static/maps/cs_cor.png"></div>
-<button class="button-csv" onclick="exportCSV()">Export CSV file</button>
+<h1 class="h1-map">Welcome to eRSHAD</h1>
+<a href="{{ url_for('main.mapView') }}"><button class="button-csv">export map points as CSV</button></a>
+<br>
+<a href="{{ url_for('main.wayfind') }}"><button class="button-csv">visit "wayfind" functionality</button></a>
+<br>
+<div class="container-box">
+    <p>eRSHAD</p>
+</div>
 {% endblock %}
 
 {% block javascript %}
-<script src="/static/js/map.js"></script>
 {% endblock %}
 
     

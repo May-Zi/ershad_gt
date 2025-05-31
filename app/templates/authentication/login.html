@@ -1,7 +1,33 @@
-<form method="POST">
-    {{ form.hidden_tag() }}
-    {{ form.email.label }} {{ form.email() }}<br>
-    {{ form.password.label }} {{ form.password() }}<br>
-    {{ form.remember.label }} {{ form.remember() }}<br>
-    {{ form.submit() }}
-</form>
+{% extends 'base.html' %}
+
+{% block title %}Login | eRSHAD{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<h1 class="h1-map">login to eRSHAD</h1>
+<div class="forms">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.email.label }} {{ form.email() }}<br>
+        {{ form.password.label }} {{ form.password() }}<br>
+        <div class="form-check">
+            <label>
+                {{ form.remember() }}
+                {{ form.remember.label.text }}
+            </label>
+        </div>
+        <br>
+        {{ form.submit() }}
+    </form>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}
+
+    
+    
+
