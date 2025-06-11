@@ -5,9 +5,16 @@
 {% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='css/mapping.css') }}">{% endblock %}
 
 {% block content %}
-<h1 class="h1-map">mark the PNG map</h1>
+<h1 class="h1-map"><b>mark the PNG map</b></h1>
+<p>Currenttime: <span id="current-time"></span></p>
 <div id="map-container"><img id="map" src="/static/maps/cs_cor.png"></div>
-<button class="button-csv" onclick="exportCSV()">Export CSV file</button>
+
+<div class="buttons">
+    <button id="startBtn" onclick="startMapping()">Start Mapping</button>
+    <button id="pauseBtn" onclick="togglePause()" disabled>Pause/Unpause Mapping</button>
+    <button id="exportBtn" onclick="exportCSV()">Export CSV file</button>
+</div>
+
 {% endblock %}
 
 {% block javascript %}

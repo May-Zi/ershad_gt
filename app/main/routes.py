@@ -84,12 +84,18 @@ def mapView():
 #store each "red dot" as a tuple of three values
 locations = []
 
+#API for the locations
+@bp.route('/get-lcoations')
+def getLocations():
+    print (jsonify(locations))
+    return jsonify(locations)
+
 #append each datapoint to "locations"
 @bp.route('/add-location', methods=['POST'])
 def addLocation():
     #assign the post json to a variable
     data = request.get_json()
-    #as json is like a dictionary, assign it key to a variable
+    #as json is like a dictionary, assign its key to a variable
     time, x, y = data['time'], data['x'], data['y']
     locations.append((time, x, y))
     print(f"clicked on ({x}, {y}) after {time}s")

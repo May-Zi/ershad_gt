@@ -1,36 +1,108 @@
-/*defining the variables*/
-let startTime = Date.now();
+
+
+let startTime = 0;
+let elapsed = 0;
+
+/* knowing that when the user visits the page,
+one still needs to click to start */
+let timerRunning = false;
+let intervalId = null;
+
 const mapContainer = document.getElementById('map-container');
 const mapImage = document.getElementById('map');
+const timeDisplay = document.getElementById('current-time');
 
-/*define the function that handles the click on the screen
-then, passes the JSON to add-location, which appends to "locations" */
+let points = [];
+
+function startMapping() {
+    startTime = Date.now() - elapsed;
+    timerRunning = true;
+    document.getElementById('startBtn').disabled = true;
+    document.getElementById('pauseBtn').disabled = false;
+
+    intervalId = setInterval(updateTime, 100); // update every 100ms
+}
+
+function togglePause() {
+    if (timerRunning) {
+        elapsed = Date.now() - startTime;
+        clearInterval(intervalId);
+    } else {
+        startTime = Date.now() - elapsed;
+        intervalId = setInterval(updateTime, 100);
+    }
+    timerRunning = !timerRunning;
+}
+
+function updateTime() {
+    const currentTime = ((Date.now() - startTime) / 1000).toFixed(2);
+    timeDisplay.textContent = currentTime;
+}
+
+function exportCSV() {
+    window.location.href = '/export';
+}
+
+/* very important for */
 async function sendLocation(time, x, y) {
     await fetch('/add-location', {
-        method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({time: time, x: x, y: y})});}
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ time, x, y })
+    });
+}
 
-/*handling when the user clicks inside the map + drawing the red dot*/
 mapContainer.addEventListener('dblclick', function(event) {
+    if (!timerRunning) return;
+
     const rect = mapImage.getBoundingClientRect();
-    /* e.g., event.ClientX (where the user clicked) - rect.left
-       distance from the left edge of the screen to the image / rect.width*/
     const x = (event.clientX - rect.left) / rect.width;
     const y = (event.clientY - rect.top) / rect.height;
     const timeSeconds = ((Date.now() - startTime) / 1000).toFixed(2);
 
-    /*drawing the circle*/
+    const naturalWidth = 1946;
+    const naturalHeight = 1574;
+    const pixelX = Math.round(x * naturalWidth);
+    const pixelY = Math.round(y * naturalHeight);
+
     const icon = document.createElement('div');
     icon.classList.add('location-icon');
     icon.style.left = `${x * 100}%`;
-    icon.style.top = `${y * 105}%`;
+    icon.style.top = `${y * 100}%`;
     mapContainer.appendChild(icon);
 
-    /*sending the points to sendLocation that sends to addLocation */
-    sendLocation(timeSeconds, x.toFixed(4), y.toFixed(4));
+    sendLocation(timeSeconds, pixelX.toFixed(4), pixelY.toFixed(4));
+
+    const relativeX = event.clientX - rect.left;
+    const relativeY = event.clientY - rect.top;
+    points.push({ x: relativeX, y: relativeY });
+
+    if (points.length >= 2) {
+        const prev = points[points.length - 2];
+        const curr = points[points.length - 1];
+        drawLine(prev.x, prev.y, curr.x, curr.y);
+    }
 });
 
-/*when the user clicking */
-function exportCSV() {
-    window.location.href = '/export';
+/* function used to draw the line
+this function is called when points has
+2 or more points 
+*/
+
+function drawLine(x1, y1, x2, y2) {
+    /*setting the 'enviornment' */
+    const line = document.createElement('div');
+    line.classList.add('line');
+    /*using pythagorean theorem's ideas */
+    const length = Math.hypot(x2 - x1, y2 - y1);
+    const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+    /*editing/personalizing the div based on each line*/
+    line.style.width = `${length}px`;
+    line.style.transform = `rotate(${angle}deg)`;
+    line.style.left = `${x1}px`;
+    line.style.top = `${y1}px`;
+    line.style.transformOrigin = '0 0';
+    /*at the end, append to the mapContainer,
+    the drawing of the line */
+    mapContainer.appendChild(line);
 }

@@ -10,11 +10,33 @@
     width: 100%;
     height: auto;
 }
+
+.button-start {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.button-pause {
+    background-color: orange;
+    color: white;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+
 .location-icon {
     position: absolute;
     width: 15px;
     height: 15px;
-    background: red;
+    background-color: red;
     border-radius: 50%;
     transform: translate(-50%, -50%);
+}
+
+.line {
+    position: absolute;
+    height: 2px;
+    background-color: red;
 }
