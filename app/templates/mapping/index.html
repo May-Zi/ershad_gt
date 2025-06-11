@@ -5,14 +5,18 @@
 {% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='css/mapping.css') }}">{% endblock %}
 
 {% block content %}
-<h1 class="h1-map"><b>mark the PNG map</b></h1>
-<p>Currenttime: <span id="current-time"></span></p>
-<div id="map-container"><img id="map" src="/static/maps/cs_cor.png"></div>
-
-<div class="buttons">
-    <button id="startBtn" onclick="startMapping()">Start Mapping</button>
-    <button id="pauseBtn" onclick="togglePause()" disabled>Pause/Unpause Mapping</button>
-    <button id="exportBtn" onclick="exportCSV()">Export CSV file</button>
+<div class="container">
+    <div class="map-header">
+        <h1>Mark the PNG Map</h1>
+        <p><span class="label">Current time:</span> <span id="current-time">0.00</span> seconds</p>
+    </div>
+    <div id="map-container"><img id="map" src="/static/maps/cs_cor.png">
+    </div>
+    <div class="buttons">
+            <button id="startBtn" onclick="startMapping()">start mapping</button>
+            <button id="pauseBtn" onclick="togglePause()" disabled>pause/unpause mapping</button>
+            <button id="exportBtn" onclick="exportCSV()">export CSV file</button>
+    </div>
 </div>
 
 {% endblock %}
