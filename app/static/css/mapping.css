@@ -108,3 +108,18 @@ button {
 .map-header .label {
     font-weight: 500;
 }
+
+
+@media screen and (max-width: 768px) {
+  
+  .buttons {
+    position: relative;
+    width: auto;
+    flex-direction: column;
+    padding: 10px;
+  } button {
+    max-width: 100%;
+  } #map-container {
+    width: auto;
+    height: auto;
+} }
