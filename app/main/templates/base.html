@@ -3,6 +3,7 @@
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
             <title>{% block title %}{% endblock %}</title>
             <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
             <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
@@ -11,7 +12,6 @@
             <!-- look pleasant when sharing the link -->
             <meta property="og:title" content="Mark PNG Maps – eRSHAD">
             <meta property="og:description" content="Map floor plans in minutes.">
-            <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
             {% block style %}{% endblock %}
         </head>
         <body>
