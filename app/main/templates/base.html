@@ -11,9 +11,8 @@
             <!-- look pleasant when sharing the link -->
             <meta property="og:title" content="Mark PNG Maps – eRSHAD">
             <meta property="og:description" content="Interactively map rooms, halls, corridors, etc.">
-            <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
-            <meta property="og:url" content="{{ url_for('index', _external=True) }}">
-            <meta property="og:type" content="website">
+            <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png' )}}">
+    
             {% block style %}{% endblock %}
         </head>
         <body>
