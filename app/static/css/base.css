@@ -67,7 +67,7 @@ a {
   color: white;
 }
 
-@media screen and (max-device-width: 1366px) {
+@media screen and (max-width: 768px) {
   
   .header {
     margin-bottom: 0px;
@@ -94,4 +94,6 @@ a {
 
 .container-home {
   padding: 20px 15px 0px 15px;
-} }
+}
+
+}

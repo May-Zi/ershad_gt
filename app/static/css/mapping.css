@@ -110,7 +110,7 @@ button {
 }
 
 
-@media screen and (max-device-width: 1366px) {
+@media screen and (max-width: 768px) {
   
   .buttons {
     position: relative;

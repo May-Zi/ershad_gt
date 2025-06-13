@@ -65,17 +65,22 @@ mapContainer.addEventListener('dblclick', function(event) {
     const rect = mapImage.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width;
     const y = (event.clientY - rect.top) / rect.height;
+    
+    /* what we send the location to the routes.py api */
     const timeSeconds = ((Date.now() - startTime) / 1000).toFixed(2);
     const naturalWidth = 1946;
     const naturalHeight = 1574;
     const pixelX = Math.round(x * naturalWidth);
     const pixelY = Math.round(y * naturalHeight);
+    sendLocation(timeSeconds, pixelX.toFixed(4), pixelY.toFixed(4));
+
+    /* moment to create an icon */
     const icon = document.createElement('div');
     icon.classList.add('location-icon');
     icon.style.left = `${x * 100}%`;
-    icon.style.top = `${y * 105}%`;
+    icon.style.top = `${y * 100 }%`;
     mapContainer.appendChild(icon);
-    sendLocation(timeSeconds, pixelX.toFixed(4), pixelY.toFixed(4));
+    
     const relativeX = event.clientX - rect.left;
     const relativeY = event.clientY - rect.top;
     points.push({ x: relativeX, y: relativeY });
