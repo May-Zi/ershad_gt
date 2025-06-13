@@ -86,4 +86,9 @@ a {
     margin: 0;
     display: flex;
 }
+
+.button-csv {
+    width: 100%;
+}
+ 
 }
