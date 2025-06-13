@@ -10,9 +10,8 @@
             <meta property="og:title" content="Mark PNG Maps – eRSHAD" />
             <!-- look pleasant when sharing the link -->
             <meta property="og:title" content="Mark PNG Maps – eRSHAD">
-            <meta property="og:description" content="Interactively map rooms, halls, corridors, etc.">
-            <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png' )}}">
-    
+            <meta property="og:description" content="Map floor plans in minutes.">
+            <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
             {% block style %}{% endblock %}
         </head>
         <body>
