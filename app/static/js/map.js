@@ -78,7 +78,7 @@ mapContainer.addEventListener('dblclick', function(event) {
     const icon = document.createElement('div');
     icon.classList.add('location-icon');
     icon.style.left = `${x * 100}%`;
-    icon.style.top = `${y * 105}%`;
+    icon.style.top = `${y * 100}%`;
     mapContainer.appendChild(icon);
     
     const relativeX = event.clientX - rect.left;
