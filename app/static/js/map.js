@@ -74,15 +74,20 @@ mapContainer.addEventListener('dblclick', function(event) {
     const pixelY = Math.round(y * naturalHeight);
     sendLocation(timeSeconds, pixelX.toFixed(4), pixelY.toFixed(4));
 
-    /* moment to create an icon */
-    const icon = document.createElement('div');
-    icon.classList.add('location-icon');
-    icon.style.left = `${x * 100}%`;
-    icon.style.top = `${y * 100}%`;
-    mapContainer.appendChild(icon);
+    
     
     const relativeX = event.clientX - rect.left;
     const relativeY = event.clientY - rect.top;
+
+
+    /* moment to create an icon */
+    const icon = document.createElement('div');
+    icon.classList.add('location-icon');
+    icon.style.left = `${relativeX}px`;
+    icon.style.top = `${relativeY}px`;
+    mapContainer.appendChild(icon);
+
+    
     points.push({ x: relativeX, y: relativeY });
     if (points.length > 0) {
         document.getElementById('exportBtn').disabled = false;
