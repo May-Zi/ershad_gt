@@ -12,8 +12,8 @@
 }
 .location-icon {
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     background-color: red;
     border-radius: 50%;
     transform: translate(-50%, -50%);
@@ -21,7 +21,7 @@
 
 .line {
     position: absolute;
-    height: 4px;
+    height: 2px;
     background-color: red;
 
 }
@@ -109,9 +109,7 @@ button {
     font-weight: 500;
 }
 
-
 @media screen and (max-width: 768px) {
-  
   .buttons {
     position: relative;
     width: auto;

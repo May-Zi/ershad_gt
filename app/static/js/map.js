@@ -63,27 +63,21 @@ mapContainer.addEventListener('dblclick', function(event) {
     /* simply don't draw if timer is not running */
     if (!timerRunning) return;
     const rect = mapImage.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
+
+    const x = (event.clientX - rect.left);
+    const y = (event.clientY - rect.top);
     
     /* what we send the location to the routes.py api */
     const timeSeconds = ((Date.now() - startTime) / 1000).toFixed(2);
-    const naturalWidth = 1946;
-    const naturalHeight = 1574;
-    const pixelX = Math.round(x * naturalWidth);
-    const pixelY = Math.round(y * naturalHeight);
     sendLocation(timeSeconds, pixelX.toFixed(4), pixelY.toFixed(4));
 
     /* moment to create an icon */
     const icon = document.createElement('div');
     icon.classList.add('location-icon');
-    icon.style.left = `${x * 100}%`;
-    icon.style.top = `${y * 100 }%`;
+    icon.style.left = `${x}px`;
+    icon.style.top = `${y}px`;
     mapContainer.appendChild(icon);
-    
-    const relativeX = event.clientX - rect.left;
-    const relativeY = event.clientY - rect.top;
-    points.push({ x: relativeX, y: relativeY });
+    points.push({ x: x, y: y});
     if (points.length > 0) {
         document.getElementById('exportBtn').disabled = false;
     }
