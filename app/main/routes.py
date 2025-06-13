@@ -1,13 +1,13 @@
 
 from . import bp
-from app import db
 import csv, io
 
 from flask import render_template, request, jsonify, url_for, redirect, Response
 from flask_login import login_user, login_required, logout_user, current_user
-
-from app.models import User
 from app.forms import RegistrationForm, LoginForm
+
+#from app import db
+#from app.models import User
 
 """
 simple view functions that don't
@@ -36,7 +36,7 @@ def imu():
 """
 Register / Login / Logout / 
 """
-
+"""
 @bp.route("/register", methods = ["GET", "POST"])
 def register():
     form = RegistrationForm()
@@ -63,7 +63,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('main.index'))
         else:
             return redirect(url_for("main.login"))
-    return render_template("authentication/login.html", form = form)
+    return render_template("authentication/login.html", form = form)"""
 
 @bp.route("/logout")
 def logout():

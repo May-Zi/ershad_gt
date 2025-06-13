@@ -13,10 +13,10 @@
             <header class="header">
                 <div class="header-inner">
                     <a href="{{ url_for('main.index') }}"><h1 class="logo">eRSHAD</h1></a>
-                    {% if current_user.is_authenticated %}
-                        <a class="login-button" href="{{ url_for('main.logout') }}">logout</a>
+                    {% if current_user is defined and current_user.is_authenticated %}
+                        <a class="login-button" href="{{ url_for('main.index') }}">logout</a>
                     {% else %}
-                        <a class="login-button" href="{{ url_for('main.login') }}">login</a>
+                        <a class="login-button" href="{{ url_for('main.index') }}">login</a>
                     {% endif %}
                 </div>
             </header>
