@@ -7,6 +7,13 @@
             <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
             <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
             <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+            <meta property="og:title" content="Mark PNG Maps – eRSHAD" />
+            <!-- look pleasant when sharing the link -->
+            <meta property="og:title" content="Mark PNG Maps – eRSHAD">
+            <meta property="og:description" content="Interactively map rooms, halls, corridors, etc.">
+            <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
+            <meta property="og:url" content="{{ url_for('index', _external=True) }}">
+            <meta property="og:type" content="website">
             {% block style %}{% endblock %}
         </head>
         <body>

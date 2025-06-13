@@ -12,49 +12,6 @@ const mapContainer = document.getElementById('map-container');
 const mapImage = document.getElementById('map');
 const timeDisplay = document.getElementById('current-time');
 
-let scale = 1;
-let lastTouchEnd = 0;
-let startDistance = 0;
-const wrapper = document.getElementById('map-wrapper');
-
-// Detect double-tap for zoom in
-mapContainer.addEventListener('touchend', function (e) {
-    const now = new Date().getTime();
-    if (now - lastTouchEnd <= 300) {
-        scale = Math.min(scale + 0.5, 3); // max zoom
-        wrapper.style.transform = `scale(${scale})`;
-    }
-    lastTouchEnd = now;
-});
-
-// Pinch to zoom
-mapContainer.addEventListener('touchmove', function (e) {
-    if (e.touches.length === 2) {
-        e.preventDefault();
-        const dist = getDistance(e.touches[0], e.touches[1]);
-        if (startDistance === 0) {
-            startDistance = dist;
-        } else {
-            let newScale = scale * (dist / startDistance);
-            newScale = Math.max(1, Math.min(newScale, 3)); // limit scale
-            wrapper.style.transform = `scale(${newScale})`;
-        }
-    }
-}, { passive: false });
-
-mapContainer.addEventListener('touchend', function (e) {
-    if (e.touches.length < 2) {
-        scale = parseFloat(wrapper.style.transform.replace('scale(', '').replace(')', '')) || 1;
-        startDistance = 0;
-    }
-});
-
-function getDistance(touch1, touch2) {
-    const dx = touch2.clientX - touch1.clientX;
-    const dy = touch2.clientY - touch1.clientY;
-    return Math.sqrt(dx * dx + dy * dy);
-}
-
 /*important not for exxporting csv, but 
 to draw the line */
 let points = [];
