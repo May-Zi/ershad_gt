@@ -67,6 +67,13 @@ a {
   option {
     color: black;
   }
+  
+  .container-box {
+    width: auto;
+    height: 300px;
+    margin: 0;
+    display: flex;
+}
 } 
 
 .container-box {
