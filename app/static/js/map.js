@@ -60,8 +60,15 @@ async function sendLocation(time, x, y) {
         body: JSON.stringify({ time, x, y })})}
 
 mapContainer.addEventListener('dblclick', function(event) {
+
     /* simply don't draw if timer is not running */
     if (!timerRunning) return;
+
+    /* if there is no points */
+    if (points.length > 0) {
+        document.getElementById('exportBtn').disabled = false;
+    }
+
     const rect = mapImage.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width;
     const y = (event.clientY - rect.top) / rect.height;
@@ -73,12 +80,10 @@ mapContainer.addEventListener('dblclick', function(event) {
     const pixelX = Math.round(x * naturalWidth);
     const pixelY = Math.round(y * naturalHeight);
     sendLocation(timeSeconds, pixelX.toFixed(4), pixelY.toFixed(4));
-
     
-    
+    /* when the user clicked on the screen */    
     const relativeX = event.clientX - rect.left;
     const relativeY = event.clientY - rect.top;
-
 
     /* moment to create an icon */
     const icon = document.createElement('div');
@@ -87,11 +92,9 @@ mapContainer.addEventListener('dblclick', function(event) {
     icon.style.top = `${relativeY}px`;
     mapContainer.appendChild(icon);
 
-    
+
     points.push({ x: relativeX, y: relativeY });
-    if (points.length > 0) {
-        document.getElementById('exportBtn').disabled = false;
-    }
+    
     if (points.length >= 2) {
         const prev = points[points.length - 2];
         const curr = points[points.length - 1];
