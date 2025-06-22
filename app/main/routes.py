@@ -76,13 +76,14 @@ allow the user to edit a "corridor map" and later
 export the csv based on the coordinates
 """
 
+#store each "red dot" as a tuple of three values
+locations = []
+
 #this will serve the page where the mapping is stored
 @bp.route('/mapping')
 def mapView():
+    locations.clear()
     return render_template('mapping/index.html')
-
-#store each "red dot" as a tuple of three values
-locations = []
 
 #API for the locations
 @bp.route('/get-lcoations')

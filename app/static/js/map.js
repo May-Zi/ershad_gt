@@ -19,6 +19,14 @@ let points = [];
 /*make sure that exportation is not allowed if no points*/
 document.getElementById('exportBtn').disabled = true;
 
+
+/* define a function that cleans the points */
+async function resetMapping() {
+  await fetch('/reset-locations', { method: 'POST' })
+  location.reload()
+}
+
+
 function startMapping() {
     const startBtn = document.getElementById('startBtn');
 
