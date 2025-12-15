@@ -1,10 +1,17 @@
 
 from . import bp
-import csv, io
+import csv, io, os
+from werkzeug.utils import secure_filename
 
-from flask import render_template, request, jsonify, url_for, redirect, Response
+from flask import render_template, request, jsonify, url_for, redirect, Response, current_app
 from flask_login import login_user, login_required, logout_user, current_user
 from app.forms import RegistrationForm, LoginForm
+
+# Allowed image extensions for map uploads
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #from app import db
 #from app.models import User
@@ -83,7 +90,33 @@ locations = []
 @bp.route('/mapping')
 def mapView():
     locations.clear()
-    return render_template('mapping/index.html')
+    # Get selected map from query param, default to first available
+    maps_folder = os.path.join(current_app.root_path, 'static', 'maps')
+    available_maps = [f for f in os.listdir(maps_folder) if allowed_file(f)]
+    selected_map = request.args.get('map', available_maps[0] if available_maps else 'cs_cor.png')
+    return render_template('mapping/index.html', maps=available_maps, selected_map=selected_map)
+
+@bp.route('/get-maps')
+def getMaps():
+    """Return list of available map images"""
+    maps_folder = os.path.join(current_app.root_path, 'static', 'maps')
+    available_maps = [f for f in os.listdir(maps_folder) if allowed_file(f)]
+    return jsonify(available_maps)
+
+@bp.route('/upload-map', methods=['POST'])
+def uploadMap():
+    """Upload a new map image"""
+    if 'map' not in request.files:
+        return jsonify({'error': 'No file provided'}), 400
+    file = request.files['map']
+    if file.filename == '':
+        return jsonify({'error': 'No file selected'}), 400
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        maps_folder = os.path.join(current_app.root_path, 'static', 'maps')
+        file.save(os.path.join(maps_folder, filename))
+        return jsonify({'status': 'ok', 'filename': filename})
+    return jsonify({'error': 'Invalid file type'}), 400
 
 #API for the locations
 @bp.route('/get-lcoations')

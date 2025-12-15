@@ -10,7 +10,26 @@
         <h1>Mark the PNG Map</h1>
         <p><span class="label">Current time:</span> <span id="current-time">0.00</span> seconds</p>
     </div>
-    <div id="map-container"><img id="map" src="/static/maps/cs_cor.png">
+    
+    <!-- Map Selection -->
+    <div class="map-selector">
+        <label for="mapSelect">Select Map:</label>
+        <select id="mapSelect" onchange="changeMap(this.value)">
+            {% for map in maps %}
+            <option value="{{ map }}" {% if map == selected_map %}selected{% endif %}>{{ map }}</option>
+            {% endfor %}
+        </select>
+        
+        <!-- Upload New Map -->
+        <form id="uploadForm" enctype="multipart/form-data" style="display: inline-block; margin-left: 15px;">
+            <input type="file" id="mapFile" name="map" accept=".png,.jpg,.jpeg,.gif" style="display: none;" onchange="uploadMap()">
+            <button type="button" onclick="document.getElementById('mapFile').click()">Upload New Map</button>
+        </form>
+    </div>
+    
+    <div style="text-align: center;">
+        <div id="map-container"><img id="map" src="/static/maps/{{ selected_map }}">
+        </div>
     </div>
     <div class="buttons">
             <button id="startBtn" onclick="startMapping()">start mapping</button>

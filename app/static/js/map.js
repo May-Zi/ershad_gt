@@ -19,6 +19,34 @@ let points = [];
 /*make sure that exportation is not allowed if no points*/
 document.getElementById('exportBtn').disabled = true;
 
+/* Change the current map */
+function changeMap(filename) {
+    window.location.href = '/mapping?map=' + encodeURIComponent(filename);
+}
+
+/* Upload a new map file */
+async function uploadMap() {
+    const fileInput = document.getElementById('mapFile');
+    const file = fileInput.files[0];
+    if (!file) return;
+    
+    const formData = new FormData();
+    formData.append('map', file);
+    
+    const response = await fetch('/upload-map', {
+        method: 'POST',
+        body: formData
+    });
+    
+    const result = await response.json();
+    if (result.status === 'ok') {
+        // Redirect to use the newly uploaded map
+        window.location.href = '/mapping?map=' + encodeURIComponent(result.filename);
+    } else {
+        alert('Upload failed: ' + (result.error || 'Unknown error'));
+    }
+}
+
 
 /* define a function that cleans the points */
 async function resetMapping() {
@@ -37,6 +65,11 @@ function startMapping() {
     timerRunning = true;
     startBtn.disabled = true;
     document.getElementById('pauseBtn').disabled = false;
+    
+    // Disable map selection while mapping is active
+    document.getElementById('mapSelect').disabled = true;
+    document.querySelector('.map-selector button').disabled = true;
+    
     intervalId = setInterval(updateTime, 100);
 }
 
