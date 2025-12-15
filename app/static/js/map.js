@@ -116,11 +116,12 @@ mapContainer.addEventListener('dblclick', function(event) {
     
     /* what we send the location to the routes.py api */
     const timeSeconds = ((Date.now() - startTime) / 1000).toFixed(2);
-    const naturalWidth = 1946;
-    const naturalHeight = 1574;
+    /* Use the actual image dimensions instead of hardcoded values */
+    const naturalWidth = mapImage.naturalWidth;
+    const naturalHeight = mapImage.naturalHeight;
     const pixelX = Math.round(x * naturalWidth);
     const pixelY = Math.round(y * naturalHeight);
-    sendLocation(timeSeconds, pixelX.toFixed(4), pixelY.toFixed(4));
+    sendLocation(timeSeconds, pixelX, pixelY);
     
     /* when the user clicked on the screen */    
     const relativeX = event.clientX - rect.left;
