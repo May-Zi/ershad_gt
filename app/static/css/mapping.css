@@ -164,6 +164,46 @@ button {
     background: #2a6a9a;
 }
 
+/* Restore session banner */
+#restore-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #fff8e1;
+    border: 1px solid #f0c040;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin: 10px auto;
+    max-width: 600px;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #5a4000;
+}
+
+#restore-banner button {
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    max-width: none;
+    height: auto;
+    flex: 0;
+    font-weight: 600;
+}
+
+#restore-banner button:first-of-type {
+    background: #3282b8;
+    color: white;
+    border: none;
+}
+
+#restore-banner button:last-of-type {
+    background: white;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
 @media screen and (max-width: 768px) {
   .buttons {
     position: relative;
